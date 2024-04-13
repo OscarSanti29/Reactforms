@@ -1,4 +1,5 @@
 import { useState } from "react";
+import validateForm from "./inputs";
 
 export default function Signupform({ setToken }) {
   const [username, setusername] = useState("");
@@ -26,6 +27,13 @@ export default function Signupform({ setToken }) {
       setToken(result.token);
     } catch (error) {
       seterror(error.message);
+    }
+
+    seterror([]);
+    const formErrors = validateForm(username, password);
+    if (formErrors.length > 0) {
+      seterror(formErrors);
+      return;
     }
   }
   return (
